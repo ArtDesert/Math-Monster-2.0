@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algebra", "Algebra\Algebra.csproj", "{9DE0A32E-BD96-47A7-B515-C7EF48C7EDEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgebraTests", "AlgebraTests\AlgebraTests.csproj", "{82ABF869-DA68-44A4-BA59-48E1730095A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{9DE0A32E-BD96-47A7-B515-C7EF48C7EDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DE0A32E-BD96-47A7-B515-C7EF48C7EDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DE0A32E-BD96-47A7-B515-C7EF48C7EDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82ABF869-DA68-44A4-BA59-48E1730095A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82ABF869-DA68-44A4-BA59-48E1730095A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82ABF869-DA68-44A4-BA59-48E1730095A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82ABF869-DA68-44A4-BA59-48E1730095A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
