@@ -44,19 +44,15 @@ public class Complex
             (Re, Im) switch
             {
                 (_, 0) => "{0}",
-                (0, _) => "{0}i",
+                (0, _) => "{1}i",
                 (_, < 0) => "{0}{1}i",
                 _ => "{0}+{1}i"
             }, Re, Im);
 
     /// <summary>
-    /// Возвращает модуль комплексного числа
+    /// Returns the modulus of a complex number.
     /// </summary>
-    /// <returns></returns>
-    public double Mod()
-    {
-        return Math.Sqrt(Math.Pow(Re, 2) + Math.Pow(Im, 2));
-    }
+    public double Mod => Math.Sqrt(Re * Re + Im * Im);
 
     /// <summary>
     /// Returns the amount of two complex numbers.
@@ -82,13 +78,29 @@ public class Complex
     /// <returns>The difference.</returns>
     public static Complex operator -(Complex a, Complex b) => new(a.Re - b.Re, a.Im - b.Im);
 
+    /// <summary>
+    /// Returns the product of two complex numbers.
+    /// </summary>
+    /// <param name="a">The first multiplier.</param>
+    /// <param name="b">The second multiplier.</param>
     public static Complex operator *(Complex a, Complex b)
         => new(
             a.Re * b.Re - a.Im * b.Im,
             a.Re * b.Im + a.Im * b.Re);
 
+    /// <summary>
+    /// Returns the quotient of two complex numbers.
+    /// </summary>
+    /// <param name="a">The numerator.</param>
+    /// <param name="b">The denominator.</param>
+    /// <exception cref="DivideByZeroException">The denominator is equal to zero.</exception>
     public static Complex operator /(Complex a, Complex b)
     {
+        if (b is { Re: 0, Im: 0 })
+        {
+            throw new DivideByZeroException();
+        }
+
         var denominator = b.Re * b.Re + b.Im * b.Im;
         return new Complex(
             (a.Re * b.Re + a.Im * b.Im) / denominator,
@@ -102,13 +114,9 @@ public class Complex
             return true;
         }
 
-        if (obj == null || obj.GetType() != typeof(Complex))
-        {
-            return false;
-        }
-
-        var complex = obj as Complex;
-        return Math.Abs(Re - complex.Re) < Epsilon && Math.Abs(Im - complex.Im) < Epsilon;
+        return obj is Complex complex
+               && Math.Abs(Re - complex.Re) < Epsilon
+               && Math.Abs(Im - complex.Im) < Epsilon;
     }
 
     public override int GetHashCode() => HashCode.Combine(Re, Im);
