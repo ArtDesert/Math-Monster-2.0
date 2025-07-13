@@ -19,4 +19,19 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Run tests
-      run: dotnet test --configuration Release --verbosity normal
+      run: dotnet test --configuration Release --logger "trx;LogFileName=test-results.trx"
+      
+    - name: Publish test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: **/*.trx  
+      
+    - name: Report test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: .NET Tests
+        path: **/*.trx
+        reporter: dotnet-trx
