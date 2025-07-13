@@ -5,33 +5,32 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:  # Добавляем возможность ручного запуска
 
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Run tests
-      run: dotnet test --configuration Release --logger "trx;LogFileName=test-results.trx"
-      
-    - name: Publish test results
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: test-results
-        path: '**/*.trx'  
-      
-    - name: Report test results
-      uses: dorny/test-reporter@v1
-      if: always()
-      with:
-        name: .NET Tests
-        path: '**/*.trx'
-        reporter: dotnet-trx
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run tests
+        run: dotnet test --configuration Release --logger "trx;LogFileName=test-results.trx" --no-restore
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4  # Обновлено до v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            **/*.trx
+            **/TestResults/*.xml
+          retention-days: 5  # Автоматическое удаление через 5 дней
