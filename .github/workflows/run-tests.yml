@@ -26,12 +26,18 @@ jobs:
       if: always()
       with:
         name: test-results
-        path: **/*.trx  
+        path: '**/*.trx'  
       
     - name: Report test results
       uses: dorny/test-reporter@v1
       if: always()
       with:
         name: .NET Tests
-        path: **/*.trx
+        path: '**/*.trx'
         reporter: dotnet-trx
+        
+notifications:
+  email:
+    recipients: satyrareddit@gmail.com
+    on_success: always  # always|change|never
+    on_failure: always  # always|change|never
