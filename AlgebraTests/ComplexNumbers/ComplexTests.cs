@@ -138,7 +138,7 @@ public class ComplexTests
     public void ArgumentOfComplexNumber_Success(Complex a, double expected)
     {
         // Act
-        var actual = a.Mod;
+        var actual = a.Arg;
 
         // Assert
         Assert.Equal(expected, actual, 6);
