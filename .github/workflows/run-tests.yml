@@ -35,9 +35,3 @@ jobs:
         name: .NET Tests
         path: '**/*.trx'
         reporter: dotnet-trx
-        
-notifications:
-  email:
-    recipients: satyrareddit@gmail.com
-    on_success: always  # always|change|never
-    on_failure: always  # always|change|never
